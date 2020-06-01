@@ -21,3 +21,16 @@ table#t01 th {
     background-color: black;
     color: white;
 }
+
+label,
+input {
+  display: block;
+}
+input{
+ margin-bottom:15px;
+}
+label.error {
+  color: red;
+  margin-top:-10px;
+  margin-bottom:15px;
+}

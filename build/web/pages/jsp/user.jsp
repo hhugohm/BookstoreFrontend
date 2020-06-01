@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <jsp:include page="/pages/jspf/util/header_css.jsp"/>
 <%!
-    public static final String TITLE = "Catalog Book";
+    public static final String TITLE = "User Information";
 %>
 <html>
     <body>
@@ -12,7 +12,7 @@
         <div>
             <h1  class="general_title_bar"><% out.print(TITLE);%> </h1>
         </div>
-        <jsp:include page="/pages/jspf/catalog/booksTable.jsp"/>
-       <%@include file="/pages/jspf/footer.jspf" %>
+        <jsp:include page="/pages/jspf/user/userTable.jsp"/>
+      <%@include file="/pages/jspf/footer.jspf" %>
     </body>
 </html>
