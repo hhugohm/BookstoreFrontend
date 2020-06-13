@@ -19,11 +19,18 @@ public class Response {
   private HttpServletRequest request;  
   private HttpServletResponse response;
   private String target;
+  private boolean sendRedirect;
 
     public Response(HttpServletRequest request, HttpServletResponse response,String target) {
         this.request = request;
         this.response = response;
         this.target=target;
+    }
+     public Response(HttpServletRequest request, HttpServletResponse response,String target,boolean sendRedirect) {
+        this.request = request;
+        this.response = response;
+        this.target=target;
+        this.sendRedirect=sendRedirect;
     }
 
     public HttpServletRequest getRequest() {
@@ -48,6 +55,14 @@ public class Response {
 
     public void setTarget(String target) {
         this.target = target;
+    }
+
+    public boolean isSendRedirect() {
+        return sendRedirect;
+    }
+
+    public void setSendRedirect(boolean sendRedirect) {
+        this.sendRedirect = sendRedirect;
     }
  
     

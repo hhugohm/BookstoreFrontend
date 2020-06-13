@@ -2,7 +2,14 @@
 
 <div class="header_div_banner">
     <h3  class="header_login">
-        <a href="login" style="color: white;">Login</a>
+        <c:choose>
+            <c:when  test="${sessionScope.sessionActive eq 'Y'}" >
+                 <a href="logout" style="color: white;">Logout</a>
+            </c:when>
+            <c:otherwise>
+                <a href="login" style="color: white;">Login</a>
+            </c:otherwise>
+        </c:choose>
     </h3>
 </div>
 

@@ -28,6 +28,9 @@ public class BookstoreController extends HttpServlet {
     private static final String BOOK = "/book";                  //User wants to view book details
     private static final String LOGIN = "/login";               // User wants to login
     private static final String START_SESSION = "/start_session";//User wants to start login
+    private static final String LOGOUT = "/logout";//User wants to logout
+    private static final String MANAGE = "/manage";//User wants to edit or add a book
+    private static final String MANAGE_ACTION="/manage_action";
 
     @Override
     public void init() throws ServletException {
@@ -49,7 +52,6 @@ public class BookstoreController extends HttpServlet {
             case CATALOG: {
                 System.out.println("processRequestCatalog::::");
                 responseDomain = libraryBusinessI.processRequestCatalog(request, response);
-                //uri = "/pages/jsp/catalog.jsp";
                 break;
             }
             case BOOK: {
@@ -64,7 +66,22 @@ public class BookstoreController extends HttpServlet {
             }
             case START_SESSION: {
                 System.out.println("processRequestStartSession::::");
-                responseDomain = libraryBusinessI.processRequestLogin(request, response);
+                responseDomain = libraryBusinessI.processRequestStartSession(request, response);
+                break;
+            }
+            case LOGOUT: {
+                System.out.println("processRequestLogout::::");
+                responseDomain = libraryBusinessI.processRequestLogout(request, response);
+                break;
+            }
+             case MANAGE: {
+                System.out.println("processRequesManage::::");
+                responseDomain = libraryBusinessI.processRequesManage(request, response);
+                break;
+            }
+              case MANAGE_ACTION: {
+                System.out.println("processRequesManageAction::::");
+                responseDomain = libraryBusinessI.processRequesManageAction(request, response);
                 break;
             }
             default: {
@@ -72,13 +89,17 @@ public class BookstoreController extends HttpServlet {
                 break;
             }
         }
-        this.dispatch(responseDomain.getRequest(), responseDomain.getResponse(), responseDomain.getTarget());
+        this.dispatch(responseDomain);
     }
 
-    private void dispatch(HttpServletRequest request, HttpServletResponse response, String target) throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher(target);
-        rd.forward(request, response);
-        //rd.include(request, response);
+    private void dispatch(Response responseDomain) throws ServletException, IOException {
+       if(responseDomain.isSendRedirect()){
+            responseDomain.getResponse().sendRedirect(responseDomain.getTarget());
+        }else{
+             RequestDispatcher rd = responseDomain.getRequest().getRequestDispatcher(responseDomain.getTarget());
+             rd.forward(responseDomain.getRequest(), responseDomain.getResponse());
+        }
+     
     }
 
     @Override

@@ -3,6 +3,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <jsp:include page="/pages/jspf/util/header_css.jsp"/>
+    <link rel="stylesheet" href="<c:url value ='/resources/css/bookstore.css'/>">
 <%!
     public static final String TITLE = "Catalog Book";
 %>

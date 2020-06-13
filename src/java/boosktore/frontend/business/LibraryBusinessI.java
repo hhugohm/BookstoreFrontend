@@ -5,14 +5,7 @@
  */
 package boosktore.frontend.business;
 
-import bookstore.backend.datamodel.Book;
-import bookstore.backend.datamodel.User;
-import boosktore.frontend.domain.Request;
 import boosktore.frontend.domain.Response;
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,6 +18,8 @@ public interface LibraryBusinessI {
      
       Response processRequestLogin(HttpServletRequest request, HttpServletResponse response);
       
+      Response processRequestStartSession(HttpServletRequest request, HttpServletResponse response);
+      
       Response processRequestBook(HttpServletRequest request, HttpServletResponse response);
       
       Response processRequestCatalog(HttpServletRequest request, HttpServletResponse response);
@@ -32,6 +27,12 @@ public interface LibraryBusinessI {
       Response processDefault(HttpServletRequest request, HttpServletResponse response);
       
       Response processRedirectLogin(HttpServletRequest request, HttpServletResponse response);
+      
+      Response processRequestLogout(HttpServletRequest request, HttpServletResponse response);
+      
+      Response processRequesManage(HttpServletRequest request, HttpServletResponse response);
+       
+      Response processRequesManageAction(HttpServletRequest request, HttpServletResponse response);
            
      
 }
