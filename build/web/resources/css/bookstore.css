@@ -17,6 +17,16 @@
     top: 0px;
 } 
 
+.header_div_chat, .header_div_cart {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 400px;
+    /*border: 3px solid red;*/
+    background-color: white;
+    padding: 10px;
+} 
+
 /**
  login.jsp
 */
@@ -66,46 +76,7 @@ CATALOG
 
 /**
  general
-*/
-
-.general_button {
-    width: 20%;
-    background-color: cadetblue;
-    color: white;
-    font-size: 1em;
-    padding: 14px 20px;
-    margin: 8px 3px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.general_button_small {
-    width: 20%;
-    background-color: cadetblue;
-    color: white;
-    font-size: 1em;
-    /*padding: 14px 20px;*/
-    /*margin: 8px 3px;*/
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.general_button:hover {
-    background-color: darkcyan;
-}
-
-.general_buttons_container {
-    text-align: center;
-} 
-
-
-
-
-
-
-
+**/
 .general_title_bar {
     text-align: center;
     background-color: cadetblue;
@@ -284,12 +255,40 @@ MANAGE BOOK
 
 .manage_div_image {
     position: fixed;
-    top: 400px;
+    top: 200px;
     right: 20px;
     width: 300px;
     /*border: 3px solid red;*/
     background-color: #F2F2F2;
 } 
 
+
+
+.header_catalog {
+    color: white;
+    font-size: 1.5em;
+    text-shadow: -3px 3px black;
+    position: absolute;
+    right: 150px;
+    top: 0px;
+}
+
+.header_chat {
+    color: white;
+    font-size: 1.5em;
+    text-shadow: -3px 3px black;
+    position: absolute;
+    right: 280px;
+    top: 0px;
+}
+
+.header_cart {
+    color: white;
+    font-size: 1.5em;
+    text-shadow: -3px 3px black;
+    position: absolute;
+    right: 370px;
+    top: 0px;
+} 
 
 

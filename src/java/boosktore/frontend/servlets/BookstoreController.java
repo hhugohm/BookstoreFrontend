@@ -30,7 +30,10 @@ public class BookstoreController extends HttpServlet {
     private static final String START_SESSION = "/start_session";//User wants to start login
     private static final String LOGOUT = "/logout";//User wants to logout
     private static final String MANAGE = "/manage";//User wants to edit or add a book
-    private static final String MANAGE_ACTION="/manage_action";
+    private static final String MANAGE_ACTION="/manage_action";  //user wants to add,edit or delet book
+    private static final String CART="/cart"; //user wants to see cart
+    private static final String ADD_TO_CART="/addToCart"; //user wants to see cart
+     private static final String REMOVE_FROM_CART="/removeFromCart"; //user wants to see cart
 
     @Override
     public void init() throws ServletException {
@@ -75,13 +78,28 @@ public class BookstoreController extends HttpServlet {
                 break;
             }
              case MANAGE: {
-                System.out.println("processRequesManage::::");
-                responseDomain = libraryBusinessI.processRequesManage(request, response);
+                System.out.println("processRequestManage::::");
+                responseDomain = libraryBusinessI.processRequestManage(request, response);
                 break;
             }
               case MANAGE_ACTION: {
-                System.out.println("processRequesManageAction::::");
-                responseDomain = libraryBusinessI.processRequesManageAction(request, response);
+                System.out.println("processRequestManageAction::::");
+                responseDomain = libraryBusinessI.processRequestManageAction(request, response);
+                break;
+            }
+              case CART: {
+                System.out.println("processRequestCart::::");
+                responseDomain = libraryBusinessI.processRequestCart(request, response);
+                break;
+            }
+               case ADD_TO_CART: {
+                System.out.println("processRequestAddCart::::");
+                responseDomain = libraryBusinessI.processRequestAddCart(request, response);
+                break;
+            }
+                case REMOVE_FROM_CART: {
+                System.out.println("processRequestRemoveCart::::");
+                responseDomain = libraryBusinessI.processRequestRemoveCart(request, response);
                 break;
             }
             default: {

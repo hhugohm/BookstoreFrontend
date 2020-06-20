@@ -30,9 +30,15 @@ public interface LibraryBusinessI {
       
       Response processRequestLogout(HttpServletRequest request, HttpServletResponse response);
       
-      Response processRequesManage(HttpServletRequest request, HttpServletResponse response);
+      Response processRequestManage(HttpServletRequest request, HttpServletResponse response);
        
-      Response processRequesManageAction(HttpServletRequest request, HttpServletResponse response);
+      Response processRequestManageAction(HttpServletRequest request, HttpServletResponse response);
+      
+      Response processRequestCart(HttpServletRequest request, HttpServletResponse response);
+       
+      Response processRequestAddCart(HttpServletRequest request, HttpServletResponse response);
+      
+      Response processRequestRemoveCart(HttpServletRequest request, HttpServletResponse response);
            
      
 }

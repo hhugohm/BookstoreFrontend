@@ -1,10 +1,28 @@
 <%@ page pageEncoding="UTF-8" %>
 
+
+
+<body  onload="hideCart()"   >
+
 <div class="header_div_banner">
+
+    <%@include  file="../jsp/cart.jsp"%>
+
+    <c:if test="${sessionScope.sessionActive eq 'Y' and sessionScope.sessionType eq 'CUSTOMER' }" >
+        <h3 class="header_cart">
+            <a  style="color:white;" onclick="showCart()" >Cart</a>
+        </h3>
+    </c:if>
+    <h3 class="header_chat"  >
+        <a  style="color:white;">Chat</a>
+    </h3>
+    <h3 class="header_catalog" >
+        <a tyle="color:white;" href="catalog" s>Catalog</a>
+    </h3>
     <h3  class="header_login">
         <c:choose>
             <c:when  test="${sessionScope.sessionActive eq 'Y'}" >
-                 <a href="logout" style="color: white;">Logout</a>
+                <a href="logout" style="color: white;">Logout</a>
             </c:when>
             <c:otherwise>
                 <a href="login" style="color: white;">Login</a>
@@ -12,4 +30,4 @@
         </c:choose>
     </h3>
 </div>
-
+</body>

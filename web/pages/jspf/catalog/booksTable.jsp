@@ -41,7 +41,15 @@
                              </td>
                         </c:if>
                         <c:if  test="${sessionScope.sessionActive eq 'Y' and sessionScope.sessionType eq 'CUSTOMER' }" >
-                            <td>Add to Cart</td>
+                            <td style="text-align: center" >
+                                <a href="">
+                                    <img border="0"
+                                             src="${pageContext.request.contextPath}/resources/images/add.png"
+                                             width="20"
+                                             height="20"
+                                             />
+                                </a>
+                            </td>
                         </c:if>
                     </tr>
                 </c:forEach>   

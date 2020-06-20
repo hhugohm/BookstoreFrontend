@@ -14,7 +14,7 @@
     </div>
     <jsp:useBean class="bookstore.backend.datamodel.Book" scope="request" id="book"/>
     <jsp:include page="/pages/jspf/book/bookTable.jsp"/>
-    <%@include file="/pages/jspf/footer.jspf" %>
+   
 </html>
 
 

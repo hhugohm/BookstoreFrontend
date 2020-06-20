@@ -41,7 +41,6 @@
                             <label>Publisher Date:</label>
                             </br>
                             
-                            
                              <input id="pPublisherDate" type="text" name="pPublisherDate" value="${(param.pAction eq 'EDIT')?  requestScope.book.publishedDate : null}" class="manage_input_text"/>
                             
                             </br>
@@ -97,5 +96,33 @@
                     </div>
                 </div>
             </div>
+                
+                            
+            <c:if test="${param.pAction eq 'EDIT'}">
+        <div class="manage_div_image">
+            <div style="text-align: center;">
+                <br/>
+                <img id="outputImage"
+                     src="${pageContext.request.contextPath}/images?pAction=R&pId=${(param.pAction eq 'EDIT')? requestScope.book.id : null}"
+                     width="276px"
+                     height="363px"/>
+                <br/>
+                <form method="POST"
+                      enctype="multipart/form-data"
+                      action="../images?pAction=U&pId=${(param.pAction eq 'EDIT')? requestScope.book.id : null}">
+                    <input id="inputImage" type="file" name="pImage"/>
+                    <br/>
+                    <br/>
+                    <input type="submit"
+                           value="Save Image"
+                           class="general_button"
+                           style="width: 100%"/>
+                </form>
+            </div>
+        </div>
+        </c:if>               
+                            
+                            
+                            
     </body>
 </html>

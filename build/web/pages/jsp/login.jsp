@@ -14,6 +14,6 @@
             <h1  class="general_title_bar"><% out.print(TITLE);%></h1>
         </div>
           <jsp:include page="/pages/jspf/login/loginForm.jsp"/>
-       <%@include file="/pages/jspf/footer.jspf" %>
+      
     </body>
 </html>

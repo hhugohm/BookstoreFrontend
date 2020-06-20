@@ -6,6 +6,7 @@
 package boosktore.frontend.business;
 
 import bookstore.backend.api.BookstoreDAO;
+import bookstore.backend.api.ShoppingCartService;
 import bookstore.backend.api.UserDAO;
 import bookstore.backend.datamodel.Book;
 import bookstore.backend.datamodel.User;
@@ -39,6 +40,9 @@ public class LibraryBusinessImpl implements LibraryBusinessI {
     private BookstoreDAO bookstoreDAO;
     @EJB
     private UserDAO userDAO;
+   
+    @EJB
+   private ShoppingCartService shoppingCartService;
 
     @Override
     public Response processRequestLogin(HttpServletRequest request, HttpServletResponse response) {
@@ -77,7 +81,7 @@ public class LibraryBusinessImpl implements LibraryBusinessI {
     
     
      @Override
-    public Response processRequesManage(HttpServletRequest request, HttpServletResponse response) {
+    public Response processRequestManage(HttpServletRequest request, HttpServletResponse response) {
          Response responseDomain = null;
          String action = Optional.ofNullable(request.getParameter("pAction")).get();
          int id;
@@ -96,7 +100,7 @@ public class LibraryBusinessImpl implements LibraryBusinessI {
          return responseDomain;
     }
     @Override
-    public Response processRequesManageAction(HttpServletRequest request, HttpServletResponse response) {
+    public Response processRequestManageAction(HttpServletRequest request, HttpServletResponse response) {
         Response responseDomain = null;
         String action = Optional.ofNullable(request.getParameter("pAction")).get();
 
@@ -265,6 +269,38 @@ public class LibraryBusinessImpl implements LibraryBusinessI {
 
         return reponseDomain;
     }
+ @Override
+    public Response processRequestCart(HttpServletRequest request, HttpServletResponse response) {
+        Response reponseDomain = null;
+        
+        List<Book> books=  this.shoppingCartService.getItems();
+        
+        HttpSession session = request.getSession();
+        session.setAttribute("books", books);
+        reponseDomain = new Response(request, response, "/pages/jsp/cart.jsp");
+        return reponseDomain;
+    }
+    
+     @Override
+    public Response processRequestAddCart(HttpServletRequest request, HttpServletResponse response) {
+        Response reponseDomain = null;
+        int pId = Integer.parseInt(Optional.ofNullable(request.getParameter("pId")).get());
+       
+       Book book = this.bookstoreDAO.getBookById(pId);
+       this.shoppingCartService.add(book);
+       
+       // reponseDomain = new Response(request, response, "/pages/jsp/cart.jsp");
+       
+         return reponseDomain;
+    }
+
+    @Override
+    public Response processRequestRemoveCart(HttpServletRequest request, HttpServletResponse response) {
+       Response reponseDomain = null;
+       
+       
+        return reponseDomain;
+    }
 
     @Override
     public Response processDefault(HttpServletRequest request, HttpServletResponse response) {
@@ -282,6 +318,9 @@ public class LibraryBusinessImpl implements LibraryBusinessI {
 
         return reponseDomain;
     }
+
+   
+   
 
    
 
