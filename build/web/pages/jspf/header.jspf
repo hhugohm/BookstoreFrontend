@@ -1,33 +1,48 @@
 <%@ page pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="../resources/css/bookstore.css">
+        <script src="../resources/js/bookstore.js"></script>
+        <script src="../resources/js/chat.js"></script>
+    </head>
 
+<body onload="hideCart();hideChat();">
+    <div class="header_div_banner">
+        <%@include file="../jspf/chat.jspf"%>
+        <%@include file="../jsp/cart.jsp"%>
 
-<body  onload="hideCart()"   >
+        <c:if test="${sessionScope.sessionActive eq 'Y' and sessionScope.sessionType eq 'CUSTOMER'}">
+            <h3 class="header_cart">
+                <a style="color: white;" onclick="showCart()">Cart</a>
+            </h3>
+        </c:if>
 
-<div class="header_div_banner">
+        <c:if test="${sessionScope.sessionActive eq 'Y'}">
+            <h3 class="header_chat">
+                <a style="color: white;"  onclick="showChat();startChatSession('${(sessionScope.sessionType eq 'ADMIN')?'Bookstore':sessionScope.sessionUser.name}');" >Chat</a>
+            </h3>
+        </c:if>
 
-    <%@include  file="../jsp/cart.jsp"%>
-
-    <c:if test="${sessionScope.sessionActive eq 'Y' and sessionScope.sessionType eq 'CUSTOMER' }" >
-        <h3 class="header_cart">
-            <a  style="color:white;" onclick="showCart()" >Cart</a>
+        <h3 class="header_catalog">
+            <a style="color: white;" href="catalog">Catalog</a>
         </h3>
-    </c:if>
-    <h3 class="header_chat"  >
-        <a  style="color:white;">Chat</a>
-    </h3>
-    <h3 class="header_catalog" >
-        <a tyle="color:white;" href="catalog" s>Catalog</a>
-    </h3>
-    <h3  class="header_login">
-        <c:choose>
-            <c:when  test="${sessionScope.sessionActive eq 'Y'}" >
-                <a href="logout" style="color: white;">Logout</a>
-            </c:when>
-            <c:otherwise>
-                <a href="login" style="color: white;">Login</a>
-            </c:otherwise>
-        </c:choose>
-    </h3>
-</div>
+
+        <h3 class="header_login">
+            <c:choose>
+                <c:when test="${sessionScope.sessionActive eq 'Y'}">
+                    <a href="logout" style="color: white;">Logout</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="login" style="color: white;">Login</a>
+                </c:otherwise>
+            </c:choose>
+        </h3>
+
+        <h1  class="header_title">
+            <u>Hugo's Bookstore</u>
+        </h1>
+        <h3 class="header_welcome">Welcome ${(sessionScope.sessionActive eq 'Y')? sessionScope.sessionUser.name: '' }!</h3>
+    </div>
 </body>

@@ -2,14 +2,11 @@ package boosktore.frontend.servlets;
 
 import bookstore.backend.api.BookstoreDAO;
 import bookstore.backend.datamodel.Book;
-import boosktore.frontend.business.ImageBusinessI;
-import boosktore.frontend.business.Simple;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Optional;
+import java.io.PrintWriter;
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -18,101 +15,86 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-/**
- *
- * @author hhugohm
- */
 @WebServlet(name = "ImagesServlet", urlPatterns = {"/images"})
-@MultipartConfig(location = "/Users/hhugohm/media/upload"   )
+@MultipartConfig(location = "C:\\Users\\vsarabia\\Home\\playground\\sandbox\\foreign\\training\\cursojee\\bookstore\\upload")
 public class ImagesServlet extends HttpServlet {
-
-    private static final String ACTION_READ="R";
-    private static final String ACTION_UPLOAD="U";
-    private static final String ACTION_PREVIEW="P";
     
-    
-    @Inject
-    @Simple
-    private ImageBusinessI imageBusinessI;
-    
-    
-     @EJB
+    @EJB
     private BookstoreDAO bookstoreDAO;
-
+    
+    private static final String ACTION_READ = "R";
+    private static final String ACTION_UPLOAD = "U";
+    private static final String ACTION_PREVIEW = "P";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       
-        String action = Optional.ofNullable(request.getParameter("pAction")).get();
+        String action = request.getParameter("pAction");
+        
         switch(action){
-            case ACTION_READ:{
-                processRequestReadImage(request,response);
-                break; 
-            }
-             case ACTION_UPLOAD:{
-                  processRequestUploadImage(request,response);
-                break; 
-            } 
-             case ACTION_PREVIEW:{
-                  processRequestPreviewImage(request,response);
-                break; 
-            } 
-             default:{
-                 break;
-             }
-            
+            case "R":
+                this.processRequestReadImage(request, response);
+                break;
+            case "U":
+                this.processRequestUploadImage(request, response);
+                break;
+            case "P":
+                this.processRequestPreviewImage(request, response);
+                break;
         }
-
+        
     }
     
-    
-  private void processRequestReadImage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       System.out.println("processRequestReadImage::::");
-      int id = Integer.parseInt(Optional.ofNullable(request.getParameter("pId")).get());  
-       Book book = this.bookstoreDAO.getBookById(id);
-       
-       byte[] imageBytes = book.getImage();
-       
-       OutputStream out =  response.getOutputStream();
-       out.write(imageBytes);
-       out.close();
-       
-       
-  }  
-  private void processRequestUploadImage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       System.out.println("processRequestUploadImage::::");
-       
-       
-        int id = Integer.parseInt(Optional.ofNullable(request.getParameter("pId")).get());
+    private void processRequestReadImage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Extract request parameters:
+        int id = Integer.parseInt(request.getParameter("pId"));
         
-       Book book = this.bookstoreDAO.getBookById(id);
-       
-       Part imagePart = request.getPart("pImage");
-       long imageSize= imagePart.getSize();
-       byte[] imageBytes= new byte[(int)imageSize];
-       InputStream  inputStream =imagePart.getInputStream();
-       inputStream.read(imageBytes);
-       
-       book.setImage(imageBytes);
-       
-       this.bookstoreDAO.update(book);
-       response.sendRedirect("controller/manage?pAction=EDIT&pId="+id);
-       
-  
-  }  
-  private void processRequestPreviewImage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       System.out.println("processRequestPreviewImage::::");
-       
-       Part imagePart = request.getPart("pImage");
-       long imageSize= imagePart.getSize();
-       byte[] imageBytes= new byte[(int)imageSize];
-       InputStream  inputStream =imagePart.getInputStream();
-       inputStream.read(imageBytes);
-       
-       OutputStream out =  response.getOutputStream();
-       out.write(imageBytes);
-       out.close();
-       //response.sendRedirect("controller/manage?pAction=EDIT&pId="+id);
-  
-  }
+        // Invoke M:
+        Book book = this.bookstoreDAO.getBookById(id);
+        
+        byte[] imageBytes = book.getImage();
+        
+        // Prepare content to return:
+        OutputStream out = response.getOutputStream();
+        out.write(imageBytes);
+        out.close();
+    }
+    
+    private void processRequestUploadImage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Extract request parameters:
+        int id = Integer.parseInt(request.getParameter("pId"));
+        
+        // Extract request parts:
+        Part imagePart = request.getPart("pImage");
+        long imageSize = imagePart.getSize();
+        
+        byte[] imageBytes = new byte[(int)imageSize];
+        
+        InputStream is = imagePart.getInputStream();
+        is.read(imageBytes);
+        
+        // Invoke M:
+        Book book = this.bookstoreDAO.getBookById(id);
+        book.setImage(imageBytes);
+        
+        this.bookstoreDAO.update(book);
+        
+        response.sendRedirect("controller/manage?pAction=EDIT&pId=" + id);
+    }
+    
+    private void processRequestPreviewImage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Extract request parts:
+        Part imagePart = request.getPart("pImage");
+        long imageSize = imagePart.getSize();
+        
+        byte[] imageBytes = new byte[(int)imageSize];
+        
+        InputStream is = imagePart.getInputStream();
+        is.read(imageBytes);
+        
+        // Prepare content to return:
+        OutputStream out = response.getOutputStream();
+        out.write(imageBytes);
+        out.close();
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

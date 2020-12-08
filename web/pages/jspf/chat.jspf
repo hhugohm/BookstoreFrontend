@@ -1,0 +1,29 @@
+<%@ page pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<div id="div_chat" class="header_div_chat">
+    <div>
+        <h1 class="general_title_bar">Talk to us:</h1>
+    </div>
+    <c:if test="${sessionScope.sessionType eq 'ADMIN'}">
+        <select id="inputChatSelector"  onchange="onChangeChatSelector();" >
+        </select>
+    </c:if>
+    <textarea id="outputChat" rows="5" style="width:100%;resize:none;" readonly="true"></textarea>
+    <br/>
+    Message: <input id="inputMessage" type="text" style="width:100%;"/>
+    <br/>
+    <br/>
+    <div class="general_buttons_container">
+        <button class="general_button_small" 
+                style="width: 30%;"
+                onclick="hideChat();endChatSession();">
+            Close
+        </button>
+        <button class="general_button_small" 
+                style="width: 30%;"
+                onclick="sendMessage();">
+            Send
+        </button>
+    </div>
+</div>

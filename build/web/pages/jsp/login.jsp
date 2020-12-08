@@ -1,19 +1,54 @@
-<%@page import="java.util.Optional"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<jsp:include page="/pages/jspf/util/header_css.jsp"/>
-<%!
-    public static final String TITLE = "Welcome Login";
-%>
-<script type="text/javascript" src="<c:url  value='/resources/js/user_form.js'/>"></script>
 <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="../resources/css/bookstore.css">
+        <title>Login</title>
+    </head>
     <body>
-    <%@include file="/pages/jspf/header.jspf" %>
+        <%@include file="../jspf/header.jspf" %>
         <div>
-            <h1  class="general_title_bar"><% out.print(TITLE);%></h1>
+            <h1 class="general_title_bar">Login</h1>
         </div>
-          <jsp:include page="/pages/jspf/login/loginForm.jsp"/>
-      
+
+       <div class="login_div_main_container">
+            <div class="login_div_login_fields">
+                <form method="POST" action="start_session">
+                    Username: <input type="text" name="pUsername"/>     
+                    <br/><br/>
+                    Password: <input type="password" name="pPassword"/> 
+                    <br/><br/>
+                    <input type="submit" value="Login"/>
+                </form>
+            </div>
+        </div>
+        
+        <%--
+         <div class="login_div_main_container">
+            <div class="login_div_login_fields">
+                <form method="POST" action="j_security_check">
+                    Username: <input type="text" name="j_username"/>     
+                    <br/><br/>
+                    Password: <input type="password" name="j_password"/> 
+                    <br/><br/>
+                    <input type="submit" value="Login"/>
+                </form>
+            </div>
+        </div>
+        
+        
+         <div class="login_div_main_container">
+            <div class="login_div_login_fields">
+                <form method="POST" action="start_session">
+                    Username: <input type="text" name="pUsername"/>     
+                    <br/><br/>
+                    Password: <input type="password" name="pPassword"/> 
+                    <br/><br/>
+                    <input type="submit" value="Login"/>
+                </form>
+            </div>
+        </div>
+                   --%>
     </body>
 </html>
